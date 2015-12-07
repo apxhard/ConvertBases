@@ -29,8 +29,8 @@ namespace ConvertBases
 
         public string ConvertToBase(string x, Base source, Base target) 
         {
-            string result;
-            Console.WriteLine("input {0}", x);
+            string result;	
+
             // Convert string to decimal
             bool isNegative = (x[0].CompareTo('-') == 0) ? true : false;
             
@@ -45,12 +45,11 @@ namespace ConvertBases
             long inputNumber = 0;
             for (; i < x.Length; i++)
             {
-                Console.WriteLine("base {0} number so far {1} digit {2}",
-                    (int)source, inputNumber, x[i]);
-
                 inputNumber = inputNumber * (int) source + ConvertCharToDigit(x[i]);
             }
+           
             Console.WriteLine("Converted number in decimal {0}", inputNumber);
+            
             // Convert decimal to base.
             result = ConvertFromDecimal(inputNumber, target);
 
@@ -107,17 +106,8 @@ namespace ConvertBases
 
             do
             {
-                long digit = 0;
-                if (inputNumber < (long)target)
-                {
-                    digit = inputNumber;
-                }
-                else
-                {
-                    digit = inputNumber % (long)target;
-                }
+                long digit = digit = inputNumber % (long)target;                
                 char digitChar = ConvertDigitToChar(digit, target);
-                Console.WriteLine("target base {0} digit {1} digitChar {2}", target.ToString(), digit, digitChar);
                 result.Append(digitChar);
                 inputNumber /= (long)target;
             } while (inputNumber != 0);
@@ -139,6 +129,7 @@ namespace ConvertBases
         static void Main(string[] args)
         {
             var baseConv = new BaseConverter();
+
             var result = 
                 baseConv.ConvertToBase("-0111", 
                 BaseConverter.Base.binary, 
@@ -152,6 +143,9 @@ namespace ConvertBases
                 BaseConverter.Base.deciml,
                 BaseConverter.Base.hexadecimal);
 
+            var result3 = baseConv.ConvertToBase("E",
+                BaseConverter.Base.hexadecimal,
+                BaseConverter.Base.deciml); 
 
             return;
         }
