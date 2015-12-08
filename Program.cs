@@ -29,13 +29,14 @@ namespace ConvertBases
 
         public string ConvertToBase(string x, Base source, Base target) 
         {
-            string result;	
+            string result;
+            Console.WriteLine("Input {0}", x);
 
             // Convert string to decimal
             bool isNegative = (x[0].CompareTo('-') == 0) ? true : false;
             
             int i = 0;            
-            // adjust start index 
+            // Adjust start index 
             if (isNegative)
             {
                 i = 1;
@@ -47,13 +48,17 @@ namespace ConvertBases
             {
                 inputNumber = inputNumber * (int) source + ConvertCharToDigit(x[i]);
             }
-           
             Console.WriteLine("Converted number in decimal {0}", inputNumber);
-            
             // Convert decimal to base.
             result = ConvertFromDecimal(inputNumber, target);
 
-            return isNegative ? "-" + result : result;
+            if (isNegative)
+            {
+                result = "-" + result;
+            }
+
+            Console.WriteLine("Final output {0}", result);
+            return result;
         }
 
         /// <summary>
@@ -97,7 +102,7 @@ namespace ConvertBases
         char ConvertDigitToChar(long digit, Base target)
         {
             return digit < 10 ? Convert.ToChar(Convert.ToInt64('0') + digit) : 
-                Convert.ToChar(Convert.ToInt64('F') - (int)target + digit + 1); 
+                Convert.ToChar(Convert.ToInt64('A') + (int)digit - 10); 
         }
 
         string ConvertFromDecimal(long inputNumber, Base target)
@@ -106,7 +111,8 @@ namespace ConvertBases
 
             do
             {
-                long digit = digit = inputNumber % (long)target;                
+                long digit = digit = inputNumber % (long)target;
+                
                 char digitChar = ConvertDigitToChar(digit, target);
                 result.Append(digitChar);
                 inputNumber /= (long)target;
@@ -129,7 +135,6 @@ namespace ConvertBases
         static void Main(string[] args)
         {
             var baseConv = new BaseConverter();
-
             var result = 
                 baseConv.ConvertToBase("-0111", 
                 BaseConverter.Base.binary, 
@@ -145,7 +150,13 @@ namespace ConvertBases
 
             var result3 = baseConv.ConvertToBase("E",
                 BaseConverter.Base.hexadecimal,
-                BaseConverter.Base.deciml); 
+                BaseConverter.Base.deciml);
+            var result4 = baseConv.ConvertToBase("7",
+                BaseConverter.Base.octal,
+                BaseConverter.Base.binary);
+            var result5 = baseConv.ConvertToBase("1000",
+                BaseConverter.Base.binary,
+                BaseConverter.Base.octal); 
 
             return;
         }
