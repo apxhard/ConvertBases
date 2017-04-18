@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConvertBases
 {
+    /// <summary>
+    /// Converts base.
+    /// </summary>
     public class BaseConverter
     {
         public enum Base
