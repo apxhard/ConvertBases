@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ConvertBases
 {
     /// <summary>
-    /// Converts base.
+    /// Convertsinput number from one base to another.
     /// </summary>
     public class BaseConverter
     {
